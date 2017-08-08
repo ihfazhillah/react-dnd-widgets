@@ -1,12 +1,28 @@
 import React from 'react';
+import Types from './ItemTypes'
+import { DropTarget } from 'react-dnd';
 
 
-export default class AreaAvailable extends React.Component {
+const dropTarget = {
+  drop(props, monitor, component){
+    return {name: props.name}
+  },
+}
+
+
+const collect = (connect, monitor) => ({
+  connectDropToDom: connect.dropTarget(),
+  isOver: monitor.isOver(),
+  canDrop: monitor.canDrop()
+});
+
+
+class AreaAvailable extends React.Component {
   render(){
-    return (
+    return this.props.connectDropToDom(
       <div className="card text-center">
         <div className="card-header">
-          Available Widgets
+          {this.props.name}
         </div>
 
         <div className="card-block">
@@ -16,3 +32,6 @@ export default class AreaAvailable extends React.Component {
     )
   }
 }
+
+AreaAvailable = DropTarget(Types.ITEM, dropTarget, collect)(AreaAvailable);
+export default AreaAvailable

@@ -12,6 +12,15 @@ const dragSpec = {
     console.log(props)
     return {title: props.title}
   },
+
+  endDrag(props, monitor, component){
+    const {addToWidgetArea} = props
+    const dropArea = monitor.getDropResult()
+    const item = monitor.getItem()
+
+    addToWidgetArea(dropArea.name, item)
+
+  }
 }
 
 

@@ -27,7 +27,10 @@ class Container extends React.Component {
   constructor(props){
     super(props)
 
+    this.addToWidgetArea = this.addToWidgetArea.bind(this);
+
     this.state = {
+      lastItemIndex: 3,
       itemAvailables: [],
       widgetAreas: [
         {
@@ -51,6 +54,24 @@ class Container extends React.Component {
     this.setState({itemAvailables: itemAvailables})
   }
 
+  addToWidgetArea(id, item){
+    this.setState(prevState => {
+      let was;
+      was = _.cloneDeep(prevState.widgetAreas);
+      was = _.forEach(was, (wa, index) =>{
+        if (wa.id === id) {
+          wa.items.push({
+            id: prevState.lastItemIndex + wa.id,
+            title: item.title
+          })
+        }
+
+      });
+
+      return {widgetAreas: was, lastItemIndex: prevState.lastItemIndex+1}
+    });
+  }
+
   render(){
     let widgetAreas = this.state.widgetAreas;
     let itemAvailables = this.state.itemAvailables;
@@ -61,8 +82,8 @@ class Container extends React.Component {
               _.map(widgetAreas, widget => (
                 <AreaAvailable name={widget.id} id={widget.id}>
                   {
-                    _.map(widget.items, item => (
-                  <ItemWithForm item={item} key={item.id}/>
+                    _.map(widget.items, (item, index) => (
+                  <ItemWithForm item={item} key={index}/>
                   ))
                   }
                 </AreaAvailable>
@@ -73,7 +94,11 @@ class Container extends React.Component {
           <div className="col-md-4 push-md-4">
             <AreaAvailable title='Widget Availables'>
               {_.map(itemAvailables, (item, index) => (
-                <ItemAvailable key={item.id} title={item.title}/>
+                <ItemAvailable 
+                  key={item.id} 
+                  title={item.title}
+                  addToWidgetArea={this.addToWidgetArea}
+                />
               ))
               }
             </AreaAvailable>
