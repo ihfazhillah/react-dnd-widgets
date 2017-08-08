@@ -3,6 +3,9 @@ import _ from 'lodash';
 import ItemAvailable from './ItemAvailable';
 import AreaAvailable from './AreaAvailable';
 import ItemWithForm from './ItemWithForm';
+import {DragDropContext} from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
 
 const itemAvailables = [
   {
@@ -20,7 +23,7 @@ const itemAvailables = [
 ]
 
 
-export default class Container extends React.Component {
+class Container extends React.Component {
   constructor(props){
     super(props)
 
@@ -80,3 +83,6 @@ export default class Container extends React.Component {
 
   }
 }
+
+Container = DragDropContext(HTML5Backend)(Container)
+export default Container;
