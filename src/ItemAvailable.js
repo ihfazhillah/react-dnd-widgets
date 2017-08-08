@@ -9,7 +9,6 @@ const collect = (connect, monitor) => ({
 
 const dragSpec = {
   beginDrag(props, monitor, component){
-    console.log(props)
     return {title: props.title}
   },
 

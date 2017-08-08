@@ -1,5 +1,6 @@
 const Types = {
-  ITEM: 'item'
+  ITEM: 'item',
+  ITEMSIDEBAR: 'item-sidebar'
 }
 
 export default Types
