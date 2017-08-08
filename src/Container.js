@@ -37,14 +37,6 @@ class Container extends React.Component {
         {
           id: 'sidebar',
           items: [
-            {
-              id: '1-sidebar',
-              title: 'Search Box'
-            },
-            {
-              id: '2-sidebar',
-              title: 'Archives'
-            }
           ]
         },
       ]
@@ -91,7 +83,14 @@ class Container extends React.Component {
     let me = this;
     return (
         <div className="row">
-          <div className="col-md-4">
+      <div className="col-md-4 col-xs-4">
+                  <div className="card">
+                    <div className="card-block">
+                      <code>{JSON.stringify(this.state.widgetAreas, null, 2)}</code>
+                    </div>
+                </div>
+              </div>
+          <div className="col-md-4 col-xs-4">
             {
               _.map(widgetAreas, widget => (
                 <AreaAvailable name={widget.id} id={widget.id}>
@@ -105,7 +104,7 @@ class Container extends React.Component {
             }
           </div>
 
-          <div className="col-md-4 push-md-4">
+          <div className="col-md-4 col-xs-4">
             <AreaAvailable title='Widget Availables'>
               {_.map(itemAvailables, (item, index) => (
                 <ItemAvailable 
@@ -117,6 +116,8 @@ class Container extends React.Component {
               }
             </AreaAvailable>
           </div>
+
+          
         </div>
     )
 
